@@ -7,7 +7,6 @@ import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.PageFactory;
 
 import bg.mdg.commons.TestBaseSetup;
 import bg.mdg.pageobjects.HomePage;
@@ -27,11 +26,11 @@ public class LoginPageTest extends TestBaseSetup {
 	public void setUp() {
 		initializeTestBaseSetup(chromeBrowser, appUrl);
 		driver = getDriver();
-		home = PageFactory.initElements(driver, HomePage.class);
 	}
 
 	@Test
 	public void _001_correctUserNameOrPassword() {
+		home = new HomePage(driver);
 		login = home.goToLogin();
 		login.with("g5140549@trbvm.com", "2477261f");
 		assertTrue("success message not present", login.successMessagePresent());
@@ -40,6 +39,7 @@ public class LoginPageTest extends TestBaseSetup {
 
 	@Test
 	public void _002_wrongUserNameOrPassword() {
+		home = new HomePage(driver);
 		login = home.goToLogin();
 		login.with("username", "password");
 		assertTrue(
