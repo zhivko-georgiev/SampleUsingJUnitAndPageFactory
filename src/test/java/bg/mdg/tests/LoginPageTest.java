@@ -15,7 +15,6 @@ import bg.mdg.pageobjects.LoginPage;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class LoginPageTest extends TestBaseSetup {
-
 	private final String chromeBrowser = "chrome";
 	private final String firefoxBrowser = "firefox";
 	private final String appUrl = "http://dir.bg";

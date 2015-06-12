@@ -13,8 +13,20 @@ public class TestBaseSetup {
 	private static final String currentWorkingDirPath = Paths.get("")
 			.toAbsolutePath().toString();
 
+	public void initializeTestBaseSetup(String browserType, String appURL) {
+		try {
+			setDriver(browserType, appURL);
+		} catch (Exception e) {
+			System.out.println("Error....." + e.getStackTrace());
+		}
+	}
 	public WebDriver getDriver() {
 		return driver;
+	}
+
+	@After
+	public void tearDown() {
+		driver.quit();
 	}
 
 	private void setDriver(String browserType, String appURL) {
@@ -49,18 +61,5 @@ public class TestBaseSetup {
 		driver.manage().window().maximize();
 		driver.navigate().to(appURL);
 		return driver;
-	}
-	
-	public void initializeTestBaseSetup(String browserType, String appURL) {
-		try {
-			setDriver(browserType, appURL);
-		} catch (Exception e) {
-			System.out.println("Error....." + e.getStackTrace());
-		}
-	}
-
-	@After
-	public void tearDown() {
-		driver.quit();
 	}
 }
