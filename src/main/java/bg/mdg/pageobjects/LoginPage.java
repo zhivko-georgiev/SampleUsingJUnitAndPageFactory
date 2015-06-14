@@ -5,20 +5,27 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends BasePageObject {
-	private final String logoutValue = "�����";
+	private final String expectedTitle = "My.dir.bg";
+	private final String errorMessage = "Грешно потребителско име или парола!";
+	private final String logoutValue = "Изход";
 
+	@CacheLookup
 	@FindBy(id = "login_name")
 	private WebElement inputUserName;
 
+	@CacheLookup
 	@FindBy(id = "login_pass")
 	private WebElement inputPassword;
 
+	@CacheLookup
 	@FindBy(id = "submit_but")
 	private WebElement loginButton;
 
+	@CacheLookup
 	@FindBy(className = "fpBlock2")
 	private WebElement loginFormLocator;
 
@@ -35,22 +42,41 @@ public class LoginPage extends BasePageObject {
 		super(driver);
 	}
 
-	public void with(String username, String password) {
+	public boolean verifySignInPageTitle() {
+		return getPageTitle().contains(expectedTitle);
+	}
+
+	public void enterUsername(String username) {
+		waitForElementToBeDisplayed(inputUserName);
 		inputUserName.sendKeys(username);
+	}
+
+	public void enterPassword(String password) {
+		waitForElementToBeDisplayed(inputPassword);
 		inputPassword.sendKeys(password);
+	}
+
+	public void clickLoginButton() {
+		waitForElementToBeDisplayed(loginButton);
 		loginButton.click();
 	}
 
 	public boolean successMessagePresent() {
+		waitForElementToBeDisplayed(successMessageLocator);
+
 		return successMessageLocator.isDisplayed();
 	}
 
 	public boolean failureMessagePresent() {
+		waitForElementToBeDisplayed(failureMessageLocator);
+
 		return failureMessageLocator.isDisplayed();
 	}
 
 	public void logout() {
+		waitForElementToBeDisplayed(successMessageLocator);
 		successMessageLocator.click();
+
 		selectValueFromUnorderedList(logoutArea, logoutValue);
 	}
 

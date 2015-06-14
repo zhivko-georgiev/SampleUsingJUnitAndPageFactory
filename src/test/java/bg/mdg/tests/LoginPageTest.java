@@ -31,19 +31,24 @@ public class LoginPageTest extends TestBaseSetup {
 	@Test
 	public void _001_correctUserNameOrPassword() {
 		home = new HomePage(driver);
-		login = home.goToLogin();
-		login.with("g5140549@trbvm.com", "2477261f");
-		assertTrue("success message not present", login.successMessagePresent());
+		login = home.clickLoginButton();
+		login.enterUsername("g5140549@trbvm.com");
+		login.enterPassword("2477261f");
+		login.clickLoginButton();
+		
+		assertTrue(login.successMessagePresent());
+		
 		login.logout();
 	}
 
 	@Test
 	public void _002_wrongUserNameOrPassword() {
 		home = new HomePage(driver);
-		login = home.goToLogin();
-		login.with("username", "password");
-		assertTrue(
-				"failure message wasn't present after providing bogus credentials",
-				login.failureMessagePresent());
+		login = home.clickLoginButton();
+		login.enterUsername("username");
+		login.enterPassword("password");
+		login.clickLoginButton();
+		
+		assertTrue(login.failureMessagePresent());
 	}
 }

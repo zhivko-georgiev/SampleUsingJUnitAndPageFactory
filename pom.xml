@@ -4,6 +4,7 @@
 	<groupId>bg.mdg</groupId>
 	<artifactId>SampleUsingJUnitAndPageFactory</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<!-- Include the following dependencies -->
 	<dependencies>
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
@@ -28,15 +29,21 @@
 			<version>4.12</version>
 		</dependency>
 	</dependencies>
+	<properties>
+		<jre.level>1.7</jre.level>
+		<jdk.level>1.7</jdk.level>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 	<build>
 		<plugins>
+			<!-- Compiler plug-in -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.3</version>
 				<configuration>
-					<!-- or whatever version you use -->
-					<source>1.7</source>
-					<target>1.7</target>
+					<source>${jdk.level}</source>
+					<target>${jdk.level}</target>
 				</configuration>
 			</plugin>
 		</plugins>
