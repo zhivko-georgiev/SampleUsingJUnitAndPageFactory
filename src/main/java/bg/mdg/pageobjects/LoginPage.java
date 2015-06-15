@@ -13,6 +13,8 @@ public class LoginPage extends BasePageObject {
 	private final String errorMessage = "Грешно потребителско име или парола!";
 	private final String logoutValue = "Изход";
 
+	private boolean isUserLogged = false;
+	
 	@CacheLookup
 	@FindBy(id = "login_name")
 	private WebElement inputUserName;
@@ -63,13 +65,19 @@ public class LoginPage extends BasePageObject {
 
 	public boolean successMessagePresent() {
 		waitForElementToBeDisplayed(successMessageLocator);
-
+		isUserLogged = true;
+		
 		return successMessageLocator.isDisplayed();
+	}
+	
+	public boolean isUserLogged() {
+		return isUserLogged;
 	}
 
 	public boolean failureMessagePresent() {
 		waitForElementToBeDisplayed(failureMessageLocator);
-
+		isUserLogged = false;
+		
 		return failureMessageLocator.isDisplayed();
 	}
 
