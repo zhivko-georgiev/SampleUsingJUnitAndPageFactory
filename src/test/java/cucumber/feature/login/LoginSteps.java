@@ -1,4 +1,4 @@
-package cucumber.steps;
+package cucumber.feature.login;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
